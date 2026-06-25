@@ -569,6 +569,10 @@
         </div>
       </div>
 
+      <div style="margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--muted);">
+        <input type="checkbox" id="u-terms" style="width:18px;height:18px;cursor:pointer;accent-color:var(--navy);">
+        <label for="u-terms" style="cursor:pointer;">קראתי ואני מסכים/ה ל<a href="/terms.html" target="_blank" style="color:var(--navy);font-weight:700;">תנאי השימוש ומדיניות הפרטיות</a></label>
+      </div>
       <button class="btn btn-primary upload-submit" id="uploadBtn" onclick="submitUpload()">
         שלחו לדפוס ←
       </button>
@@ -612,7 +616,7 @@
 
 <footer>
   <div class="logo" style="color:var(--navy);">דפוס <b style="color:var(--red);">חנין</b></div>
-  © דפוס חנין — כל הזכויות שמורות
+  © דפוס חנין — כל הזכויות שמורות · <a href="/terms.html" style="color:var(--muted);text-decoration:none;font-weight:600;">תנאי שימוש ופרטיות</a>
 </footer>
 
 <script>
@@ -725,6 +729,7 @@
     var phone = document.getElementById('u-phone').value.trim();
     var email = document.getElementById('u-email').value.trim();
     if (!name || !phone || !email) return setStatus('error','אנא מלאו שם, טלפון ואימייל לפני שליחה');
+    if (!document.getElementById('u-terms').checked) return setStatus('error','אנא אשרו את תנאי השימוש לפני שליחה');
     if (!selectedFile)   return setStatus('error','אנא בחרו קובץ להעלאה');
 
     // Upload to Uploadcare
