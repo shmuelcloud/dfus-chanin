@@ -242,12 +242,18 @@
   .upload-card{padding:42px;}
   .drop-zone{
     border:2px dashed var(--border);border-radius:14px;
-    padding:44px 20px;text-align:center;cursor:pointer;
+    padding:36px 20px;text-align:center;cursor:pointer;
     background:var(--bg-2);transition:border-color .2s,background .2s;
     margin-bottom:24px;position:relative;
   }
   .drop-zone.drag-over,.drop-zone:hover{border-color:var(--navy);background:#eef2f7;}
   .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .browse-btn{
+    display:inline-block;margin-top:14px;padding:10px 24px;
+    background:var(--navy);color:#fff;border-radius:6px;
+    font-family:inherit;font-size:.9rem;font-weight:700;
+    cursor:pointer;border:none;position:relative;z-index:2;
+  }
   .drop-icon{font-size:2.8rem;margin-bottom:10px;}
   .drop-zone h3{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:6px;}
   .drop-zone p{color:var(--muted);font-size:.88rem;}
@@ -541,10 +547,12 @@
     <div class="upload-card glass reveal">
 
       <!-- Drop zone -->
-      <div class="drop-zone" id="dropZone">
-        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.tiff,.tif,.ai,.eps,.docx">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <input type="file" id="fileInput"
+          accept=".pdf,.jpg,.jpeg,.png,.tiff,.tif,.ai,.eps,.docx,application/pdf,image/jpeg,image/png,image/tiff,application/postscript,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;">
         <div class="drop-icon">📂</div>
-        <h3>גררו קובץ לכאן או לחצו לבחירה</h3>
+        <h3>גררו קובץ לכאן</h3>
         <p>PDF, JPG, PNG, TIFF, AI, EPS, DOCX — עד 50MB</p>
         <div class="drop-types">
           <span class="drop-tag">PDF</span><span class="drop-tag">JPG</span>
@@ -552,6 +560,7 @@
           <span class="drop-tag">AI</span><span class="drop-tag">EPS</span>
           <span class="drop-tag">DOCX</span>
         </div>
+        <button class="browse-btn" onclick="event.stopPropagation();document.getElementById('fileInput').click();">בחרו קובץ מהמכשיר</button>
       </div>
 
       <!-- File preview after selection -->
