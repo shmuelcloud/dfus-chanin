@@ -42,3 +42,12 @@ document.addEventListener('DOMContentLoaded', function(){
   }, {threshold:0.12});
   els.forEach(function(el){ obs.observe(el); });
 })();
+
+/* Temporary closure notice — delete this block to remove the banner */
+document.addEventListener('DOMContentLoaded', function(){
+  var b = document.createElement('div');
+  b.className = 'closed-banner';
+  b.setAttribute('role', 'status');
+  b.innerHTML = 'הדפוס סגור זמנית. נחזור לפעילות בהקדם.<small>לפרטים ניתן ליצור קשר בטלפון 054-4944844</small>';
+  document.body.insertBefore(b, document.body.firstChild);
+});
