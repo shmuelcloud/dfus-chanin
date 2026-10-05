@@ -43,11 +43,30 @@ document.addEventListener('DOMContentLoaded', function(){
   els.forEach(function(el){ obs.observe(el); });
 })();
 
-/* Temporary closure notice — delete this block to remove the banner */
+/* Temporary closure popup — delete this block to remove it (auto-hides after Oct 14, 2026) */
 document.addEventListener('DOMContentLoaded', function(){
-  var b = document.createElement('div');
-  b.className = 'closed-banner';
-  b.setAttribute('role', 'status');
-  b.innerHTML = 'הדפוס סגור זמנית. נחזור לפעילות בהקדם.<small>לפרטים ניתן ליצור קשר בטלפון 054-4944844</small>';
-  document.body.insertBefore(b, document.body.firstChild);
+  if (new Date() >= new Date('2026-10-15T00:00:00+03:00')) return;
+  try { if (sessionStorage.getItem('closedPopupSeen')) return; } catch(e) {}
+  var o = document.createElement('div');
+  o.className = 'closed-popup-overlay';
+  o.innerHTML =
+    '<div class="closed-popup" role="dialog" aria-modal="true" aria-labelledby="cpTitle">' +
+      '<button type="button" class="closed-popup-x" aria-label="סגור / Close">&times;</button>' +
+      '<h2 id="cpTitle">העסק סגור זמנית</h2>' +
+      '<p class="cp-he">אני בחופשה עד ה-14 לאוקטובר</p>' +
+      '<hr>' +
+      '<div dir="ltr" lang="en"><h3>Temporarily closed</h3>' +
+      '<p>I am on vacation until October 14th.</p></div>' +
+      '<button type="button" class="closed-popup-ok">הבנתי / OK</button>' +
+    '</div>';
+  function close(){
+    o.remove();
+    try { sessionStorage.setItem('closedPopupSeen', '1'); } catch(e) {}
+  }
+  o.addEventListener('click', function(e){
+    if (e.target === o || e.target.classList.contains('closed-popup-x') || e.target.classList.contains('closed-popup-ok')) close();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+  document.body.appendChild(o);
+  o.querySelector('.closed-popup-ok').focus();
 });
